@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
 
 
 	// gstreamer
-
 	GstElement *pipeline;
 
 	gst_init(&argc, &argv);
@@ -25,12 +24,17 @@ int main(int argc, char *argv[])
 
 	pipeline = gst_parse_launch(desc, NULL);
 
-	gst_element_set_state(pipeline, GST_STATE_PLAYING);
+	if ( pipeline )
+		w.setPipeline(pipeline);
 
-	a.exec();
+	int ret = a.exec();
 
-	gst_element_set_state(pipeline, GST_STATE_NULL);
-	gst_object_unref(pipeline);
+	if ( pipeline )
+	{
+		gst_element_set_state(pipeline, GST_STATE_NULL);
+		gst_object_unref(pipeline);
+	}
 
-	return 0;
+	return ret;
+
 }
