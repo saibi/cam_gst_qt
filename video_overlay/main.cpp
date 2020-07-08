@@ -10,7 +10,12 @@ int main(int argc, char *argv[])
 	gst_init(&argc, &argv);
 
 	MainWindow w;
+
+#ifdef __RK3399__
+	w.showFullScreen();
+#else
 	w.show();
+#endif
 
 	return a.exec();
 }
