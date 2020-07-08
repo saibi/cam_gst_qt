@@ -1,19 +1,19 @@
-#include "dialog.h"
-#include "ui_dialog.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include <gst/video/videooverlay.h>
 
-Dialog::Dialog(QWidget *parent) :
-	QDialog(parent),
-	ui(new Ui::Dialog)
+
+MainWindow::MainWindow(QWidget *parent) :
+	QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
 
 	m_pipeline = 0;
 }
 
-
-Dialog::~Dialog()
+MainWindow::~MainWindow()
 {
 	if ( m_pipeline )
 	{
@@ -24,13 +24,13 @@ Dialog::~Dialog()
 	delete ui;
 }
 
-void Dialog::showEvent(QShowEvent *e)
+void MainWindow::showEvent(QShowEvent *e)
 {
 	setupGStreamer();
-	QDialog::showEvent(e);
+	QMainWindow::showEvent(e);
 }
 
-void Dialog::setupGStreamer()
+void MainWindow::setupGStreamer()
 {
 	if ( m_pipeline )
 	{
@@ -75,7 +75,7 @@ void Dialog::setupGStreamer()
 
 }
 
-void Dialog::on_pushButton_play_clicked()
+void MainWindow::on_pushButton_play_clicked()
 {
 	qDebug("[%s]", Q_FUNC_INFO);
 
@@ -83,7 +83,7 @@ void Dialog::on_pushButton_play_clicked()
 		gst_element_set_state(m_pipeline, GST_STATE_PLAYING);
 }
 
-void Dialog::on_pushButton_stop_clicked()
+void MainWindow::on_pushButton_stop_clicked()
 {
 	qDebug("[%s]", Q_FUNC_INFO);
 
