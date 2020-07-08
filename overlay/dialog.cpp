@@ -3,6 +3,20 @@
 
 #include <gst/video/videooverlay.h>
 
+
+#ifdef __RK3399__
+#define PIPELINE_DESC "rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! kmssink render-rectangle=\"<400,100,320,240>\"";
+#define SINK_NAME "kmssink0"
+
+#elif defined(__1810TZ__)
+#define PIPELINE_DESC "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=320,height=240,framerate=30/1 ! videoconvert ! ximagesink"
+#define SINK_NAME "ximagesink0"
+
+#else
+#define PIPELINE_DESC "videotestsrc ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! videoconvert ! ximagesink"
+#define SINK_NAME "ximagesink0"
+#endif
+
 Dialog::Dialog(QWidget *parent) :
 	QDialog(parent),
 	ui(new Ui::Dialog)
@@ -43,14 +57,7 @@ void Dialog::setupGStreamer()
 	}
 
 	// gstreamer
-	const char * desc;
-#ifdef __RK3399__
-	desc = "rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! kmssink render-rectangle=\"<400,100,320,240>\"";
-#else
-	desc = "videotestsrc ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! videoconvert ! ximagesink";
-#endif
-
-	m_pipeline = gst_parse_launch(desc, NULL);
+    m_pipeline = gst_parse_launch(PIPELINE_DESC, NULL);
 
 	if ( m_pipeline )
 	{
@@ -58,15 +65,7 @@ void Dialog::setupGStreamer()
 
 		GstElement *video_sink;
 
-		const char * sink_name;
-
-#ifdef __RK3399__
-		sink_name = "kmssink0";
-#else
-		sink_name = "ximagesink0";
-#endif
-
-		video_sink = gst_bin_get_by_name(GST_BIN(m_pipeline), sink_name);
+        video_sink = gst_bin_get_by_name(GST_BIN(m_pipeline), SINK_NAME);
 
 		gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(video_sink), ui->widget_gst_video->winId());
 

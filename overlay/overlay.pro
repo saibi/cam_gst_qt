@@ -44,6 +44,11 @@ linux-rk3399mali-g++ | linux-rk3399x11-g++ {
     PKG_CONFIG_SYSROOT_DIR=$$[QT_SYSROOT]
 }
 
+equals(QT_MAJOR_VERSION, 5):equals(QT_MINOR_VERSION, 9):linux-g++ {
+    message("Qt 5.9, ymkim 1810tz laptop")
+    DEFINES += __1810TZ__
+}
+
 # for gstreamer
 QMAKE_CXXFLAGS += `pkg-config --cflags gstreamer-video-1.0 gstreamer-1.0`
 LIBS += `pkg-config --libs gstreamer-video-1.0 gstreamer-1.0`
