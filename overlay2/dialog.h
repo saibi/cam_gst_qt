@@ -27,6 +27,8 @@ private slots:
 
 	void on_pushButton_stop_clicked();
 
+	void on_pushButton_video_clicked();
+
 private:
 	Ui::Dialog *ui;
 
