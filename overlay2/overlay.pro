@@ -25,13 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        dialog.cpp
+        dialog.cpp \
+    transparentwidget.cpp
 
 HEADERS += \
-        dialog.h
+        dialog.h \
+    transparentwidget.h
 
 FORMS += \
-        dialog.ui
+        dialog.ui \
+    transparentwidget.ui
 
 linux-rk3399mali-g++ | linux-rk3399x11-g++ {
     DEFINES += __RK3399__
