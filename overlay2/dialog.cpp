@@ -28,7 +28,6 @@ Dialog::Dialog(QWidget *parent) :
 	ui->setupUi(this);
 
 	m_pipeline = 0;
-	m_transparentWidget = 0;
 }
 
 
@@ -39,9 +38,6 @@ Dialog::~Dialog()
 		gst_element_set_state(m_pipeline, GST_STATE_NULL);
 		gst_object_unref(m_pipeline);
 	}
-
-	if ( m_transparentWidget )
-		delete m_transparentWidget;
 
 	delete ui;
 }
@@ -101,15 +97,4 @@ void Dialog::on_pushButton_stop_clicked()
 void Dialog::on_pushButton_video_clicked()
 {
 	qDebug("[%s]", Q_FUNC_INFO);
-
-	if ( m_transparentWidget == 0 )
-	{
-		m_transparentWidget = new TransparentWidget(this);
-		Q_CHECK_PTR(m_transparentWidget);
-	}
-
-	if ( m_transparentWidget->isVisible() )
-		m_transparentWidget->hide();
-	else
-		m_transparentWidget->show();
 }

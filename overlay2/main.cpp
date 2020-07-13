@@ -3,6 +3,9 @@
 
 #include <gst/gst.h>
 
+#include "transparentwidget.h"
+
+
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
@@ -11,6 +14,9 @@ int main(int argc, char *argv[])
 
 	Dialog w;
 	w.show();
+
+	TransparentWidget t;
+	t.show();
 
 	return a.exec();
 }
