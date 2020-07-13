@@ -28,6 +28,7 @@ Dialog::Dialog(QWidget *parent) :
 	ui->setupUi(this);
 
 	m_pipeline = 0;
+	m_transparentWidget = 0;
 }
 
 
@@ -39,6 +40,11 @@ Dialog::~Dialog()
 		gst_object_unref(m_pipeline);
 	}
 
+	if ( m_transparentWidget )
+	{
+		qDebug("delete transparentWidget");
+		delete m_transparentWidget;
+	}
 	delete ui;
 }
 
@@ -97,4 +103,36 @@ void Dialog::on_pushButton_stop_clicked()
 void Dialog::on_pushButton_video_clicked()
 {
 	qDebug("[%s]", Q_FUNC_INFO);
+
+	if ( m_transparentWidget == 0 )
+	{
+		m_transparentWidget = new TransparentWidget();
+		Q_CHECK_PTR(m_transparentWidget);
+
+		m_transparentWidget->show();
+		qDebug("new transparentWidget");
+
+		qDebug("move transparentWidget, (%d,%d)", mapToGlobal(QPoint(0, 0)).x(), mapToGlobal(QPoint(0, 0)).y() );
+		m_transparentWidget->move(mapToGlobal(QPoint(0, 0)));
+	}
+	else
+	{
+
+		if ( m_transparentWidget->isVisible() )
+		{
+			qDebug("hide transparentWidget");
+			m_transparentWidget->hide();
+		}
+		else
+		{
+			qDebug("show transparentWidget");
+			m_transparentWidget->show();
+
+			qDebug("move transparentWidget, (%d,%d)", mapToGlobal(QPoint(0, 0)).x(), mapToGlobal(QPoint(0, 0)).y() );
+			m_transparentWidget->move(mapToGlobal(QPoint(0, 0)));
+
+		}
+
+	}
+
 }

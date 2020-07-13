@@ -5,6 +5,9 @@
 
 #include <gst/gst.h>
 
+#include "transparentwidget.h"
+
+
 namespace Ui {
 class Dialog;
 }
@@ -33,6 +36,9 @@ private:
 	Ui::Dialog *ui;
 
 	GstElement *m_pipeline;
+
+	TransparentWidget *m_transparentWidget;
+
 };
 
 #endif // DIALOG_H
