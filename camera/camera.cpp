@@ -130,6 +130,30 @@ void Camera::setCamera(const QCameraInfo &cameraInfo)
     ui->captureWidget->setTabEnabled(1, (m_camera->isCaptureModeSupported(QCamera::CaptureVideo)));
 
     updateCaptureMode();
+
+
+#ifdef __RK3399__
+	QCameraViewfinderSettings viewfinderSettings = m_camera->viewfinderSettings();
+
+	qDebug("DBG default viewfinderSettings : %f~%f, %d:%d, %d*%d, %d",
+		   viewfinderSettings.minimumFrameRate(),
+		   viewfinderSettings.maximumFrameRate(),
+		   viewfinderSettings.pixelAspectRatio().width(),
+		   viewfinderSettings.pixelAspectRatio().height(),
+		   viewfinderSettings.resolution().width(),
+		   viewfinderSettings.resolution().height(),
+		   viewfinderSettings.pixelFormat() );
+
+	qDebug("DBG set viewfinderSettings 1~30, 4:3, 640*480, NV12");
+	viewfinderSettings.setResolution(640, 480);
+	viewfinderSettings.setPixelAspectRatio(4, 3);
+	viewfinderSettings.setMinimumFrameRate(1.0);
+	viewfinderSettings.setMaximumFrameRate(30.0);
+	viewfinderSettings.setPixelFormat(QVideoFrame::Format_NV12);
+
+	m_camera->setViewfinderSettings(viewfinderSettings);
+#endif
+
     m_camera->start();
 }
 
