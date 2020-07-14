@@ -345,7 +345,13 @@ void Camera::displayCaptureError(int id, const QCameraImageCapture::Error error,
 
 void Camera::startCamera()
 {
-    m_camera->start();
+	m_camera->start();
+
+#ifdef __RK3399__
+	// start() does not work. reset camera
+	setCamera(QCameraInfo::defaultCamera());
+#endif
+
 }
 
 void Camera::stopCamera()
@@ -364,6 +370,7 @@ void Camera::updateCaptureMode()
 
 void Camera::updateCameraState(QCamera::State state)
 {
+	qDebug("DBG state = %d", state);
     switch (state) {
     case QCamera::ActiveState:
         ui->actionStartCamera->setEnabled(false);
