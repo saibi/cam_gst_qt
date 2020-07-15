@@ -346,17 +346,15 @@ void Camera::displayCaptureError(int id, const QCameraImageCapture::Error error,
 void Camera::startCamera()
 {
 	m_camera->start();
-
-#ifdef __RK3399__
-	// start() does not work. reset camera
-	setCamera(QCameraInfo::defaultCamera());
-#endif
-
 }
 
 void Camera::stopCamera()
 {
     m_camera->stop();
+#ifdef __RK3399__
+	qDebug("DBG unload");
+	m_camera->unload();
+#endif
 }
 
 void Camera::updateCaptureMode()
@@ -364,8 +362,18 @@ void Camera::updateCaptureMode()
     int tabIndex = ui->captureWidget->currentIndex();
     QCamera::CaptureModes captureMode = tabIndex == 0 ? QCamera::CaptureStillImage : QCamera::CaptureVideo;
 
+	qDebug("DBG captureMode %d", captureMode);
     if (m_camera->isCaptureModeSupported(captureMode))
+	{
+#ifdef __RK3399__
+		m_camera->stop();
+		m_camera->unload();
+#endif
         m_camera->setCaptureMode(captureMode);
+#ifdef __RK3399__
+		m_camera->start();
+#endif
+	}
 }
 
 void Camera::updateCameraState(QCamera::State state)
