@@ -58,6 +58,8 @@
 
 #include <QMainWindow>
 
+#include "transparentwidget.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Camera; }
 QT_END_NAMESPACE
@@ -109,6 +111,8 @@ private slots:
     void readyForCapture(bool ready);
     void imageSaved(int id, const QString &fileName);
 
+	void on_lockButton_clicked();
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
@@ -127,6 +131,8 @@ private:
     QString m_videoContainerFormat;
     bool m_isCapturingImage = false;
     bool m_applicationExiting = false;
+
+	TransparentWidget * m_transparentWidget;
 };
 
 #endif

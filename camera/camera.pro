@@ -6,18 +6,21 @@ QT += multimedia multimediawidgets
 HEADERS = \
     camera.h \
     imagesettings.h \
-    videosettings.h
+    videosettings.h \
+    transparentwidget.h
 
 SOURCES = \
     main.cpp \
     camera.cpp \
     imagesettings.cpp \
-    videosettings.cpp
+    videosettings.cpp \
+    transparentwidget.cpp
 
 FORMS += \
     camera.ui \
     videosettings.ui \
-    imagesettings.ui
+    imagesettings.ui \
+    transparentwidget.ui
 
 RESOURCES += camera.qrc
 

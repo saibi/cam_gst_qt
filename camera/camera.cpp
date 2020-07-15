@@ -70,6 +70,8 @@ Camera::Camera() : ui(new Ui::Camera)
 {
     ui->setupUi(this);
 
+	m_transparentWidget = 0;
+
     //Camera devices:
 
     QActionGroup *videoDevicesGroup = new QActionGroup(this);
@@ -362,7 +364,7 @@ void Camera::updateCaptureMode()
     int tabIndex = ui->captureWidget->currentIndex();
     QCamera::CaptureModes captureMode = tabIndex == 0 ? QCamera::CaptureStillImage : QCamera::CaptureVideo;
 
-	qDebug("DBG captureMode %d", captureMode);
+	qDebug("DBG captureMode = %d", captureMode);
     if (m_camera->isCaptureModeSupported(captureMode))
 	{
 #ifdef __RK3399__
@@ -470,4 +472,28 @@ void Camera::closeEvent(QCloseEvent *event)
     } else {
         event->accept();
     }
+}
+
+void Camera::on_lockButton_clicked()
+{
+	qDebug("[%s]", Q_FUNC_INFO);
+
+	if ( ! m_transparentWidget )
+	{
+		m_transparentWidget = new TransparentWidget(this);
+		Q_CHECK_PTR(m_transparentWidget);
+		qDebug("DBG new transparentWidget");
+	}
+
+	if ( m_transparentWidget->isVisible() )
+	{
+		m_transparentWidget->hide();
+		qDebug("DBG hide transparentWidget");
+	}
+	else
+	{
+		m_transparentWidget->show();
+		m_transparentWidget->move(50, 50);
+		qDebug("DBG show transparentWidget");
+	}
 }
