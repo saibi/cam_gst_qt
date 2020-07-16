@@ -146,9 +146,9 @@ void Camera::setCamera(const QCameraInfo &cameraInfo)
 		   viewfinderSettings.resolution().height(),
 		   viewfinderSettings.pixelFormat() );
 
-	qDebug("DBG set viewfinderSettings 1~30, 4:3, 640*480, NV12");
-	viewfinderSettings.setResolution(640, 480);
-	viewfinderSettings.setPixelAspectRatio(4, 3);
+	qDebug("DBG set viewfinderSettings 1~30, 16:9, 1920x1080, NV12");
+	viewfinderSettings.setResolution(1920, 1080);
+	viewfinderSettings.setPixelAspectRatio(16, 9);
 	viewfinderSettings.setMinimumFrameRate(1.0);
 	viewfinderSettings.setMaximumFrameRate(30.0);
 	viewfinderSettings.setPixelFormat(QVideoFrame::Format_NV12);
