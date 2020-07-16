@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 
 	m_pipeline = 0;
+
+	setWindowOpacity(0.4);
 }
 
 MainWindow::~MainWindow()

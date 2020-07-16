@@ -364,7 +364,7 @@ void Camera::updateCaptureMode()
     int tabIndex = ui->captureWidget->currentIndex();
     QCamera::CaptureModes captureMode = tabIndex == 0 ? QCamera::CaptureStillImage : QCamera::CaptureVideo;
 
-	qDebug("DBG captureMode = %d", captureMode);
+	qDebug("DBG captureMode = %d", (int)captureMode);
     if (m_camera->isCaptureModeSupported(captureMode))
 	{
 #ifdef __RK3399__
