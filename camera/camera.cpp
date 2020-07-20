@@ -154,6 +154,16 @@ void Camera::setCamera(const QCameraInfo &cameraInfo)
 	viewfinderSettings.setPixelFormat(QVideoFrame::Format_NV12);
 
 	m_camera->setViewfinderSettings(viewfinderSettings);
+
+	QCameraImageProcessing *imageProcessing = m_camera->imageProcessing();
+
+	if ( imageProcessing->isAvailable() )
+	{
+		qDebug("DBG QCameraImageProcessing");
+		imageProcessing->setColorFilter(QCameraImageProcessing::ColorFilterNegative);
+		imageProcessing->setBrightness(1.0);
+	}
+
 #endif
 
     m_camera->start();
