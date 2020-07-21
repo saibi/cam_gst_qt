@@ -8,7 +8,7 @@ QList<QVideoFrame::PixelFormat> SharedViewFinder::supportedPixelFormats(QAbstrac
 
 	if ( type == QAbstractVideoBuffer::NoHandle )
 	{
-		list.append(QVideoFrame::Format_RGB32);
+		list.append(QVideoFrame::Format_NV12);
 	}
 
 	return list;
@@ -19,7 +19,7 @@ bool SharedViewFinder::present(const QVideoFrame &frame)
 	QVideoFrame copy(frame);
 
 	copy.map(QAbstractVideoBuffer::ReadOnly);
-	QImage image(copy.bits(), copy.width(), copy.height(), copy.bytesPerLine(), QImage::Format_RGB32);
+	QImage image(copy.bits(), copy.width(), copy.height(), copy.bytesPerLine(), QImage::Format_Indexed8);
 	copy.unmap();
 
 	emit signalFrameReady(QPixmap::fromImage(image));

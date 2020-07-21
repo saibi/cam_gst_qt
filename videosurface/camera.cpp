@@ -71,6 +71,7 @@ Camera::Camera() : ui(new Ui::Camera)
     ui->setupUi(this);
 
 	m_transparentWidget = 0;
+	m_sharedViewFinder = 0;
 
     //Camera devices:
 
@@ -495,15 +496,37 @@ void Camera::on_lockButton_clicked()
 		qDebug("DBG new transparentWidget");
 	}
 
+	if ( ! m_sharedViewFinder )
+	{
+		m_sharedViewFinder = new SharedViewFinder();
+		Q_CHECK_PTR(m_sharedViewFinder);
+		qDebug("DBG new sharedViewFinder");
+
+		connect(m_sharedViewFinder, &SharedViewFinder::signalFrameReady, this, &Camera::slotFrameReady);
+	}
+
 	if ( m_transparentWidget->isVisible() )
 	{
 		m_transparentWidget->hide();
 		qDebug("DBG hide transparentWidget");
+
+		m_camera->setViewfinder(ui->viewfinder);
 	}
 	else
 	{
 		m_transparentWidget->show();
 		m_transparentWidget->move(50, 50);
 		qDebug("DBG show transparentWidget");
+
+		if ( m_sharedViewFinder )
+			m_camera->setViewfinder(m_sharedViewFinder);
+	}
+}
+
+void Camera::slotFrameReady(QPixmap pixmap)
+{
+	if ( m_transparentWidget && m_transparentWidget->isVisible() )
+	{
+		m_transparentWidget->frameReady(pixmap);
 	}
 }

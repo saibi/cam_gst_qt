@@ -6,7 +6,7 @@ TransparentWidget::TransparentWidget(QWidget *parent) :
 	ui(new Ui::TransparentWidget)
 {
 	ui->setupUi(this);
-	setAttribute(Qt::WA_TranslucentBackground);
+	//setAttribute(Qt::WA_TranslucentBackground);
 }
 
 TransparentWidget::~TransparentWidget()
@@ -17,4 +17,10 @@ TransparentWidget::~TransparentWidget()
 void TransparentWidget::on_pushButton_clicked()
 {
 	qDebug("[%s]", Q_FUNC_INFO);
+}
+
+void TransparentWidget::frameReady(QPixmap pixmap)
+{
+	ui->label->setPixmap(pixmap);
+	ui->label->update();
 }

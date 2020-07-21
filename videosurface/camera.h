@@ -59,6 +59,7 @@
 #include <QMainWindow>
 
 #include "transparentwidget.h"
+#include "sharedviewfinder.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Camera; }
@@ -70,6 +71,9 @@ class Camera : public QMainWindow
 
 public:
     Camera();
+
+public slots:
+	void slotFrameReady(QPixmap pixmap);
 
 private slots:
     void setCamera(const QCameraInfo &cameraInfo);
@@ -133,6 +137,7 @@ private:
     bool m_applicationExiting = false;
 
 	TransparentWidget * m_transparentWidget;
+	SharedViewFinder * m_sharedViewFinder;
 };
 
 #endif
