@@ -106,7 +106,13 @@ VideoPlayer::~VideoPlayer()
 
 void VideoPlayer::openFile()
 {
+#if defined(__RK3399_X11__)
 #define PIPELINE "gst-pipeline: rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=800,height=480,framerate=30/1 ! videoconvert ! xvimagesink name=qtvideosink"
+#elif defined(__RK3399_MALI__)
+#define PIPELINE "gst-pipeline: rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=1280,height=800,framerate=30/1 ! videoconvert ! autovideosink name=qtvideosink"
+#else
+#define PIPELINE "gst-pipeline: videotestsrc ! autovideosink name=qtvideosink"
+#endif
 
 	qDebug("[%s] setMedia test (%s)", Q_FUNC_INFO, PIPELINE);
 	m_mediaPlayer->setMedia(QUrl(PIPELINE));
