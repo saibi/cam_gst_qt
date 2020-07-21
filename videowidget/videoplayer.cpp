@@ -106,9 +106,13 @@ VideoPlayer::~VideoPlayer()
 
 void VideoPlayer::openFile()
 {
-	qDebug("[%s] setMedia test", Q_FUNC_INFO);
-	m_mediaPlayer->setMedia(QUrl("gst-pipeline: videotestsrc ! autovideosink"));
+#define PIPELINE "gst-pipeline: videotestsrc ! xvimagesink name=qtvideosink"
+
+	qDebug("[%s] setMedia test (%s)", Q_FUNC_INFO, PIPELINE);
+	m_mediaPlayer->setMedia(QUrl(PIPELINE));
 	m_playButton->setEnabled(true);
+
+// org
 //    QFileDialog fileDialog(this);
 //    fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
 //    fileDialog.setWindowTitle(tr("Open Movie"));
