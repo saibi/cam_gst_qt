@@ -18,6 +18,12 @@ int main(int argc, char *argv[])
 	QObject::connect(&viewfinder, &SharedViewFinder::signalFrameReady, &w, &MainWindow::slotFrameReady);
 
 	QList<QCameraInfo> cameras = QCameraInfo::availableCameras();
+
+	foreach(QCameraInfo info, cameras)
+	{
+		qDebug("%s", qPrintable(info.deviceName()));
+	}
+
 	QCamera camera(cameras[0]);
 	camera.setViewfinder(&viewfinder);
 
@@ -33,8 +39,8 @@ int main(int argc, char *argv[])
 		   viewfinderSettings.resolution().height(),
 		   viewfinderSettings.pixelFormat() );
 
-#define RESOLUTION_X 800
-#define RESOLUTION_Y 480
+#define RESOLUTION_X 1280
+#define RESOLUTION_Y 800
 	qDebug("DBG set viewfinderSettings 1~30, 16:9, %dx%d, NV12", RESOLUTION_X, RESOLUTION_Y);
 	viewfinderSettings.setResolution(RESOLUTION_X, RESOLUTION_Y);
 	viewfinderSettings.setPixelAspectRatio(16, 9);
