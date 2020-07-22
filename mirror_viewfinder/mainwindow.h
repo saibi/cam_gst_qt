@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <QTime>
+
 namespace Ui {
 class MainWindow;
 }
@@ -18,8 +20,15 @@ public:
 public slots:
 	void slotFrameReady(QPixmap pixmap);
 
+protected:
+	void timerEvent(QTimerEvent *event);
+
 private:
 	Ui::MainWindow *ui;
+
+	int m_counter;
+
+	QTime m_time;
 };
 
 #endif // MAINWINDOW_H
