@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	SharedViewFinder viewfinder, viewfinder2;
+	viewfinder2.setInvert(true);
 
 	MainWindow w;
 	w.show();

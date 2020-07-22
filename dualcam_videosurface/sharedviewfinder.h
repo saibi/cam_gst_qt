@@ -13,8 +13,13 @@ public:
 	QList<QVideoFrame::PixelFormat> supportedPixelFormats(QAbstractVideoBuffer::HandleType type) const;
 	bool present(const QVideoFrame &frame);
 
+	void setInvert(bool invert = true) { m_invert = invert; }
+
 signals:
 	void signalFrameReady(QPixmap);
+
+private:
+	bool m_invert;
 };
 
 #endif // SHAREDVIEWFINDER_H
