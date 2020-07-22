@@ -22,7 +22,7 @@ public slots:
 	void slotFrame2Ready(QPixmap pixmap);
 
 protected:
-	void timerEvent(QTimerEvent *event);
+	void timerEvent(QTimerEvent *);
 
 private:
 	Ui::MainWindow *ui;
