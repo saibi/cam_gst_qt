@@ -47,17 +47,22 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
+//#include <QGuiApplication> // only for QQuickView
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQuickView>
 #include <QQmlEngine>
 
 #include <QQuickItem>
 #include <QCamera>
 
+#include "form.h"
+
 int main(int argc, char* argv[])
 {
-    QGuiApplication app(argc,argv);
+	//QGuiApplication app(argc,argv); // only for QQuickView
+	QApplication app(argc, argv);
+
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     // Qt.quit() called in embedded .qml by default only emits
@@ -66,6 +71,9 @@ int main(int argc, char* argv[])
     view.setSource(QUrl("qrc:///declarative-camera.qml"));
     view.resize(800, 480);
     view.show();
+
+	Form form;
+	form.show();
 
 	qDebug("DBG QuickItem");
 	QQuickItem * rootItem = qobject_cast<QQuickItem*>(view.rootObject());
@@ -87,8 +95,14 @@ int main(int argc, char* argv[])
 			settings.setMinimumFrameRate(10.0);
 			settings.setMaximumFrameRate(30.0);
 			camera->setViewfinderSettings(settings);
+
+			form.setCamera(camera);
 		}
 	}
+
+
+
+
 	qDebug("DBG exec");
     return app.exec();
 }

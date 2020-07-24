@@ -1,9 +1,10 @@
 TEMPLATE=app
 TARGET=declarative-camera
 
-QT += quick qml multimedia
+QT += quick qml multimedia multimediawidgets
 
-SOURCES += qmlcamera.cpp
+SOURCES += qmlcamera.cpp \
+    form.cpp
 RESOURCES += declarative-camera.qrc
 
 
@@ -19,4 +20,10 @@ linux-rk3399mali-g++ | linux-rk3399x11-g++ {
     target.path = /home/saibi/cam_gst_qt
     INSTALLS += target
 }
+
+FORMS += \
+    form.ui
+
+HEADERS += \
+    form.h
 

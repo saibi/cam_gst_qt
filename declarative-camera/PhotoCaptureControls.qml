@@ -120,7 +120,9 @@ FocusScope {
                         text: "Fluorescent"
                     }
                 }
-                onValueChanged: captureControls.camera.imageProcessing.whiteBalanceMode = wbModesButton.value
+                onValueChanged: {
+                    captureControls.camera.imageProcessing.whiteBalanceMode = wbModesButton.value
+                }
             }
 
             CameraButton {
@@ -142,7 +144,10 @@ FocusScope {
 
             CameraListButton {
                 model: QtMultimedia.availableCameras
-                onValueChanged: captureControls.camera.deviceId = value
+                onValueChanged: {
+                    console.log("DBG selected deviceId =", value)
+                    captureControls.camera.deviceId = value
+                }
             }
 
             CameraButton {

@@ -109,6 +109,12 @@ Rectangle {
              resolution: "640x480"
              frameRate: 30
         }
+
+        deviceId: "/dev/video4"
+
+        onDeviceIdChanged: {
+            console.log("DBG deviceId changed :", deviceId);
+        }
     }
 
     PhotoPreview {
@@ -160,4 +166,14 @@ Rectangle {
         onPreviewSelected: cameraUI.state = "VideoPreview"
         onPhotoModeSelected: cameraUI.state = "PhotoCapture"
     }
+
+    Component.onCompleted: {
+        console.warn("DBG warn")
+        console.log("DBG log")
+        console.error("DBG error")
+        console.debug("DBG debug")
+        console.exception("DBG exception")
+        console.info("DBG info")
+    }
+
 }

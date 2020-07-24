@@ -117,7 +117,9 @@ FocusScope {
 
             CameraListButton {
                 model: QtMultimedia.availableCameras
-                onValueChanged: captureControls.camera.deviceId = value
+                onValueChanged: {
+                    captureControls.camera.deviceId = value
+                }
             }
 
             CameraButton {
