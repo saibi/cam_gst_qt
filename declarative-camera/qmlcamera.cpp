@@ -75,6 +75,7 @@ int main(int argc, char* argv[])
 	Form form;
 	form.show();
 
+#ifdef __RK3399__
 	qDebug("DBG QuickItem");
 	QQuickItem * rootItem = qobject_cast<QQuickItem*>(view.rootObject());
 	QObject * obj = rootItem->findChild<QObject *>("qml-Camera");
@@ -99,9 +100,7 @@ int main(int argc, char* argv[])
 			form.setCamera(camera);
 		}
 	}
-
-
-
+#endif
 
 	qDebug("DBG exec");
     return app.exec();
