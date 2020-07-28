@@ -5,7 +5,6 @@ import QtMultimedia 5.4
 
 import test.saibi.qt 1.0
 
-
 Window {
     visible: true
     width: 640
@@ -30,7 +29,5 @@ Window {
         anchors.fill: parent
 
         filters: [ filter ]
-
-
     }
 }

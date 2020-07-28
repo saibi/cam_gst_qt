@@ -26,8 +26,4 @@ signals:
 	void finished(QObject *result);
 };
 
-
-
-
-
 #endif // MYFILTER_H
