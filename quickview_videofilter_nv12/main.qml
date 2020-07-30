@@ -26,4 +26,26 @@ Rectangle {
 
         filters: [ filter ]
     }
+
+
+    Text {
+        id: textmsg
+        text: "Hello"
+        font.pixelSize: 30
+
+        width: 80
+        height: 20
+
+        MouseArea {
+            id: mousearea
+            anchors.fill: parent
+            onPressed: {
+                textmsg.text = "World"
+            }
+            onReleased: {
+                textmsg.text = "Hello"
+            }
+        }
+    }
+
 }
