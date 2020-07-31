@@ -5,7 +5,7 @@
 
 
 #ifdef __RK3399__
-#define PIPELINE_DESC "rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! kmssink render-rectangle=\"<400,100,320,240>\"";
+#define PIPELINE_DESC "rkisp device=/dev/video0 io-mode=1 analyzer=1 enable-3a=1 ! video/x-raw,format=NV12,width=320,height=240,framerate=30/1 ! kmssink render-rectangle=\"<400,100,320,240>\""
 #define SINK_NAME "kmssink0"
 
 #elif defined(__1810TZ__)
