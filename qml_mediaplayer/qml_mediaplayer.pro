@@ -22,7 +22,29 @@ QML_IMPORT_PATH =
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+
+linux-rk3399mali-g++ | linux-rk3399x11-g++ {
+    DEFINES += __RK3399__
+
+    linux-rk3399mali-g++ {
+        DEFINES += __RK3399_MALI__
+    } else {
+        DEFINES += __RK3399_X11__
+    }
+
+    target.path = /home/saibi/cam_gst_qt
+    INSTALLS += target
+
+    PKG_CONFIG_PATH=
+    PKG_CONFIG_LIBDIR=$$[QT_SYSROOT]/usr/lib/aarch64-linux-gnu/pkgconfig:$$[QT_SYSROOT]/usr/lib/pkgconfig:$$[QT_SYSROOT]/usr/share/pkgconfig
+    PKG_CONFIG_SYSROOT_DIR=$$[QT_SYSROOT]
+}
+
+equals(QT_MAJOR_VERSION, 5):equals(QT_MINOR_VERSION, 9):linux-g++ {
+    message("Qt 5.9, ymkim 1810tz laptop")
+    DEFINES += __1810TZ__
+}
+
+# for gstreamer
+#QMAKE_CXXFLAGS += `pkg-config --cflags gstreamer-video-1.0 gstreamer-1.0`
+#LIBS += `pkg-config --libs gstreamer-video-1.0 gstreamer-1.0`
