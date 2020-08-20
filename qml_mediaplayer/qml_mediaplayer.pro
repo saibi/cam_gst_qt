@@ -45,6 +45,10 @@ equals(QT_MAJOR_VERSION, 5):equals(QT_MINOR_VERSION, 9):linux-g++ {
     DEFINES += __1810TZ__
 }
 
+equals(QT_MAJOR_VERSION, 5): lessThan(QT_MINOR_VERSION, 12) {
+    message("Use 5.12.x or later for MediaPlayer gst-pipeline source")
+}
+
 # for gstreamer
 #QMAKE_CXXFLAGS += `pkg-config --cflags gstreamer-video-1.0 gstreamer-1.0`
 #LIBS += `pkg-config --libs gstreamer-video-1.0 gstreamer-1.0`
