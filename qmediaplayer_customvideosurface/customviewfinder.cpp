@@ -25,6 +25,8 @@ bool CustomViewFinder::present(const QVideoFrame &frame)
 	QImage image(copy.bits(), copy.width(), copy.height(), copy.bytesPerLine(), QImage::Format_RGB32);
 	copy.unmap();
 
+	image = image.mirrored(true, false);
+
 	emit signalFrameReady(QPixmap::fromImage(image));
 	return true;
 }
