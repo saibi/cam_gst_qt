@@ -53,7 +53,17 @@ void MainWindow::setupCamera()
 	m_camera = new QCamera(cameras[0]);
 	Q_CHECK_PTR(m_camera);
 
-	m_camera->setViewfinder(m_surface);
+	// m_camera->setViewfinder(m_surface);
+
+	// graphicsvideoitem test
+	QGraphicsVideoItem *v = new QGraphicsVideoItem();
+	QGraphicsScene *scene = new QGraphicsScene(this);
+	scene->addItem(v);
+	ui->graphicsView->setScene(scene);
+
+	m_camera->setViewfinder(v);
+
+
 
 	m_capture = new QCameraImageCapture(m_camera);
 	Q_CHECK_PTR(m_capture);
